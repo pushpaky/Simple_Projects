@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Event Countdown Timer</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: black;
+            }
+            h1 {
+                color:aqua;
+            }
+            #timer {
+                background-color: aquamarine;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                margin: 20px auto;
+                max-width: 300px;
+            }
+            #countdown {
+                font-size: 24px;
+                font-weight: bold;
+                color:blueviolet;
+            }
+            #event {
+                font-size: 34px;
+                font-weight: bold;
+                color:aliceblue
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Event Countdown Timer</h1>
+        <div id="timer">
+            <h3 id="evnet">{{ data.name }}</h3>
+            <h2> Time Remaining: </h2>
+            <div id="countdown">
+                {{ data.hours|stringformat:"02d" }} : {{ data.minutes|stringformat:"02d" }} : {{ data.seconds|stringformat:"02d" }}
+
+            </div>
+        </div>
+        <script>
+            function updateTimer() {
+                var hours = parseInt(document.getElementById('countdown').textContent.split(':')[0]);
+                var minutes = parseInt(document.getElementById('countdown').textContent.split(':')[1]);
+                var seconds = parseInt(document.getElementById('countdown').textContent.split(':')[2]);
+
+                if (seconds > 0){
+                    seconds--;
+                } else {
+                    if(minutes > 0){
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        if (hours > 0){
+                            hours--;
+                            minutes = 59;
+                            seconds = 59;
+                        } else {
+
+                        }
+                    }
+                }
+                document.getElementById('countdown').textContent = 
+                    (hours < 10 ? '0' : '') + hours + ' : ' +
+                    (minutes < 10 ? '0' : '') + minutes + ':' + 
+                    (seconds < 10 ? '0' : '') + seconds ;
+            }
+            setInterval(updateTimer, 1000)
+        </script>
+
+    </body>
+</html>
